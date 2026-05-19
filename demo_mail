@@ -1,28 +1,31 @@
 
-Subject: SBOM & FOSS Compliance Tooling — Work Highlights
+Subject: SBOM & FOSS Compliance Tooling — Work Update
 
-Hi [Manager's Name],
 
-As part of our FOSS compliance, software supply chain security, and Bill of Materials (BOM) initiatives, the following work has been developed and implemented.
+Hi Santhosh and Ratheesh,
 
-1. CBOM — Cryptography Bill of Materials
-Developed a source code scanner and an accompanying dashboard that detects and catalogs cryptographic assets — algorithms, protocols, key lengths, and library dependencies — and emits a CycloneDX 1.6-compliant CBOM. The tooling enables post-quantum cryptography (PQC) readiness assessments and maps to NSA CNSA 2.0, EU Cyber Resilience Act, and US Executive Order requirements on software supply chain security.
+Greetings for the Day!
 
-2. AIBoM — AI Bill of Materials
-Built a structured framework to inventory AI/ML assets — models, datasets, training frameworks, and inference dependencies — producing an auditable AIBoM artifact. The implementation addresses emerging regulatory expectations around AI provenance and supply chain transparency.
+As part of our FOSS compliance, software supply chain security and Bill of Materials (BOM) initiatives, the following work has been developed and implemented.
+
+1. CBOM - Cryptography Bill of Materials
+Developed a source code scanner and an accompanying dashboard that detects and catalogues cryptographic assets - algorithms, protocols, key lengths, and library dependencies and emits a CycloneDX 1.6-compliant CBOM. The tooling enables post-quantum cryptography (PQC) readiness assessments and maps to NSA CNSA 2.0, EU Cyber Resilience Act and US Executive Order requirements on software supply chain security.
+
+2. AIBOM - AI Bill of Materials
+Built a structured framework to inventory AI/ML assets - models, datasets, training frameworks, and inference dependencies - producing an auditable AIBOM artifact. The implementation addresses emerging regulatory expectations around AI provenance and supply chain transparency.
 
 3. Notice File Generator
-Engineered an automated tool that traverses a project's dependency tree, resolves open-source license obligations, and generates a legally compliant NOTICE/ATTRIBUTION file — eliminating manual effort from FOSS compliance workflows and reducing associated legal exposure.
+Engineered an automated tool that traverses a project's dependency tree and generates a legally compliant NOTICE/ATTRIBUTION file - eliminating manual effort from FOSS compliance workflows and reducing associated legal exposure.
 
-4. GitHub Workflow Automation — SBOM Pipelines
+4. GitHub Workflow Automation - SBOM Pipelines
 Constructed end-to-end CI/CD pipelines on GitHub Actions, integrating the following tools:
-— SCANOSS: for OSS component identification and snippet-level IP analysis against the OSSKB knowledge base.
-— FOSSology: for license scanning, copyright detection, and Export Control Classification (ECC) analysis.
-— Syft: for generating CycloneDX and SPDX-format SBOMs across source code, Git repositories, and Docker container images.
+o	SCANOSS: for OSS component identification and snippet-level IP analysis against the OSSKB knowledge base.
+o	FOSSology: for license scanning, copyright detection, and Export Control Classification (ECC) analysis.
+o	Syft: for generating CycloneDX and SPDX-format SBOMs across source code, Git repositories, and Docker container images.
 
 The pipelines execute automatically on every commit and pull request, delivering continuous SBOM coverage across the software supply chain with no manual intervention.
 
 For reference, screenshots of the application interfaces are attached.
 
-Regards,
-Bharath
+Thanks & Regards,
+ 
