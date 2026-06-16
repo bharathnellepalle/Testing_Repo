@@ -1,0 +1,27 @@
+SCANOSS Crypto-Finder Setup — Session Log
+Step 1: Verified Docker Image Already Pulled
+Checked Docker Desktop — ghcr.io/scanoss/crypto-finder:latest was already available locally (pulled 4 months ago, 946 MB). No pull needed.
+
+Step 2: Created Output Folder
+powershellmkdir C:\Users\smili\Downloads\cryptofinder\output
+Created a dedicated folder for CBOM output.
+
+Step 3: First Scan Attempt — No API Key
+powershelldocker run --rm -v "C:\Users\smili\Downloads\openssl-openssl-3.6.0:/workspace/code:ro" -v "C:\Users\smili\Downloads\output:/workspace/output" ghcr.io/scanoss/crypto-finder:latest scan --no-remote-rules --format cyclonedx --output /workspace/output/cbom.json /workspace/code
+❌ Failed:
+ERROR: no rules specified: use --rules <file>, --rules-dir <directory>, or enable remote rules
+Why: --no-remote-rules skips the SCANOSS cloud ruleset, but no local rules were provided either. Rules are not bundled in the image — you must supply them.
+
+Step 4: Second Scan Attempt — With SBOM Workbench API Key
+powershelldocker run --rm -v "C:\Users\smili\Downloads\openssl-openssl-3.6.0:/workspace/code:ro" -v "C:\Users\smili\Downloads\cryptofinder\output:/workspace/output" -e SCANOSS_API_KEY=38vI4qW8GC0hkWb9piVnQ4F738vI4qW8GC0hkWb9piVnQ4F7 ghcr.io/scanoss/crypto-finder:latest scan --format cyclonedx --output /workspace/output/cbom.json /workspace/code
+❌ Failed:
+ERROR: failed to load rules: failed to load rules from remote:dca@latest: failed to get ruleset 'dca@latest': failed to download ruleset: download failed after 3 retries: unauthorized: invalid API key: {"error":"Unauthorized"}
+Why: The SBOM Workbench API key only works for the SCANOSS SBOM/scanning API (api.scanoss.com). Crypto-finder's remote rulesets (dca@latest) are on a separate endpoint that requires a dedicated crypto-finder API key — which is a paid/trial tier.
+
+Current Status
+WhatStatusDocker image✅ ReadyOpenSSL source✅ ReadyOutput folder✅ ReadyAPI key❌ Wrong tier
+Next Options
+
+Option A: Request crypto-finder trial key → https://www.scanoss.com/try-it-now
+Option B: Use local YAML rules with --no-remote-rules --rules-dir (no key needed, limited coverage)
+
