@@ -24,3 +24,54 @@ Next Options
 
 Option A: Request crypto-finder trial key → https://www.scanoss.com/try-it-now
 Option B: Use local YAML rules with --no-remote-rules --rules-dir (no key needed, limited coverage)
+
+
+
+# SCANOSS Crypto-Finder — Exact Steps & Commands
+
+## Step 1: Pull Docker Image
+```powershell
+docker pull ghcr.io/scanoss/crypto-finder:latest
+```
+*(We skipped this — image was already available locally)*
+
+---
+
+## Step 2: Create Output Folder
+```powershell
+mkdir C:\Users\smili\Downloads\cryptofinder\output
+```
+
+---
+
+## Step 3: Scan — No API Key (First Attempt)
+```powershell
+docker run --rm -v "C:\Users\smili\Downloads\openssl-openssl-3.6.0:/workspace/code:ro" -v "C:\Users\smili\Downloads\cryptofinder\output:/workspace/output" ghcr.io/scanoss/crypto-finder:latest scan --no-remote-rules --format cyclonedx --output /workspace/output/cbom.json /workspace/code
+```
+**❌ Error:**
+```
+ERROR: no rules specified: use --rules <file>, --rules-dir <directory>, or enable remote rules
+```
+
+---
+
+## Step 4: Scan — With SBOM Workbench API Key (Second Attempt)
+```powershell
+docker run --rm -v "C:\Users\smili\Downloads\openssl-openssl-3.6.0:/workspace/code:ro" -v "C:\Users\smili\Downloads\cryptofinder\output:/workspace/output" -e SCANOSS_API_KEY=38vI4qW8GC0hkWb9piVnQ4F738vI4qW8GC0hkWb9piVnQ4F7 ghcr.io/scanoss/crypto-finder:latest scan --format cyclonedx --output /workspace/output/cbom.json /workspace/code
+```
+**❌ Error:**
+```
+ERROR: failed to load rules: failed to load rules from remote:dca@latest: failed to get ruleset 'dca@latest': failed to download ruleset: download failed after 3 retries: unauthorized: invalid API key: {"error":"Unauthorized"}
+```
+
+---
+
+## Root Cause
+| Attempt | Flag | Result |
+|---|---|---|
+| Without key | `--no-remote-rules` | Needs local rules, none provided |
+| With Workbench key | `SCANOSS_API_KEY` | Key valid for SBOM API, not crypto-finder ruleset API |
+
+## Fix Options
+- **Option A:** Request crypto-finder API key → https://www.scanoss.com/try-it-now
+- **Option B:** Use local YAML rules with `--no-remote-rules --rules-dir /workspace/rules`
