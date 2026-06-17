@@ -75,3 +75,7 @@ ERROR: failed to load rules: failed to load rules from remote:dca@latest: failed
 ## Fix Options
 - **Option A:** Request crypto-finder API key → https://www.scanoss.com/try-it-now
 - **Option B:** Use local YAML rules with `--no-remote-rules --rules-dir /workspace/rules`
+
+
+PS C:\Users\smili> docker run --rm -v "C:\Users\smili\Downloads\openssl-openssl-3.6.0:/workspace/code:ro" -v "C:\Users\smili\Downloads\cryptofinder\output:/workspace/output" -e SCANOSS_API_KEY=38vI4qW8GC0hkWb9piVnQ4F7 ghcr.io/scanoss/crypto-finder:latest scan --format cyclonedx --output /workspace/output/cbom.json /workspace/code
+ERROR: failed to load rules: failed to load rules from remote:dca@latest: failed to get ruleset 'dca@latest': failed to download ruleset: download failed after 3 retries: forbidden: access denied: {"error":"Endpoint access denied","message":"Access to /v2/cryptography/rulesets/dca/latest/download is not permitted for your account"}
